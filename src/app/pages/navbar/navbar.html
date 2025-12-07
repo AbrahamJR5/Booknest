@@ -1,1 +1,28 @@
-<p>navbar works!</p>
+<nav class="navbar navbar-expand-lg navbar-dark bg-hero py-3">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center fw-bold fs-4" routerLink="/">
+      <i class="bi bi-book me-2 text-primary-custom"></i>
+      BookNest
+    </a>
+
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+      <ul class="navbar-nav gap-4">
+        <li class="nav-item"><a class="nav-link text-white" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link text-white-50" routerLink="/catalogo" routerLinkActive="active">Catálogo</a></li>
+        <li class="nav-item"><a class="nav-link text-white-50" href="#">Categorías</a></li>
+        <li class="nav-item"><a class="nav-link text-white-50" routerLink="/mis-reservaciones" routerLinkActive="active">Mis Reservaciones</a></li>
+      </ul>
+    </div>
+
+    <div class="d-flex align-items-center gap-3 text-white">
+      <a routerLink="/registro" class="text-white text-decoration-none small">Registrarse</a>
+      <a routerLink="/login" class="d-flex align-items-center text-white text-decoration-none border border-white rounded-pill px-3 py-1">
+        <i class="bi bi-person me-2"></i> Iniciar sesión
+      </a>
+    </div>
+  </div>
+</nav>
