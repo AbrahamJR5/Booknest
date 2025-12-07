@@ -7,20 +7,20 @@
           <span class="fw-bold">con un clic</span>
         </h1>
         <p class="lead fw-light mb-4 opacity-75">
-          Explora nuestra colección curada de libros y reserva tus favoritos. Una experiencia simple para los amantes de la lectura.
+          Explora nuestra colección curada de libros y reserva tus favoritos. Una experiencia simple para los amantes de
+          la lectura.
         </p>
 
         <div class="position-relative w-100" style="max-width: 400px; margin: 0 auto 0 0;">
-          <input type="text"
-                 class="form-control form-control-lg border-0 shadow-none ps-4 hero-search-input"
-                 placeholder="Buscar libros, autores, categorías..."
-                 aria-label="Buscar libros">
+          <input type="text" class="form-control form-control-lg border-0 shadow-none ps-4 hero-search-input"
+            placeholder="Buscar libros, autores, categorías..." aria-label="Buscar libros">
           <i class="bi bi-search position-absolute top-50 end-0 translate-middle-y me-3 opacity-50"></i>
         </div>
       </div>
 
       <div class="col-lg-6 d-none d-lg-block text-end">
-        <img src="assets/images/reading-person.png" alt="Lectura" class="img-fluid rounded-3 shadow-lg" style="max-height: 400px;">
+        <img src="assets/images/reading-person.png" alt="Lectura" class="img-fluid rounded-3 shadow-lg"
+          style="max-height: 400px;">
       </div>
     </div>
   </div>
@@ -60,17 +60,24 @@
 
   <div class="row g-4">
     @for (cat of categorias; track cat.id_categoria; let i = $index) {
-      <div class="col-lg-3 col-md-6">
-        <div class="card card-category text-center p-4 shadow-sm border-0 rounded-3 h-100 category-{{ i % 4 }}">
+    <div class="col-lg-3 col-md-6">
+      <div class="card card-category text-center p-4 shadow-sm border-0 rounded-3 h-100 category-{{ i % 4 }}">
 
-          <i class="bi bi-book-half fs-1 mb-3"></i>
-          <h5 class="fw-bold m-0">{{ cat.nombre }}</h5>
+        <i class="fs-1 mb-3 bi-{{ cat.nombre === 'Ficción' ? 'pen-fill' :
+                                  cat.nombre === 'Ciencia Ficción' ? 'rocket-takeoff-fill' :
+                                  cat.nombre === 'Infantil' ? 'balloon-heart-fill' :
+                                  cat.nombre === 'Romance' ? 'heart-fill' :
+                                  cat.nombre === 'Clásicos' ? 'columns-gap' :
+                                  'book-half' }}"></i>
 
-          <a routerLink="/catalogo" [queryParams]="{ categoria: cat.nombre }" class="stretched-link" aria-label="Ver categoría {{ cat.nombre }}"></a>
-        </div>
+        <h5 class="fw-bold m-0">{{ cat.nombre }}</h5>
+
+        <a routerLink="/catalogo" [queryParams]="{ categoria: cat.nombre }" class="stretched-link"
+          aria-label="Ver categoría {{ cat.nombre }}"></a>
       </div>
+    </div>
     } @empty {
-       <div class="col-12 text-center text-muted">Cargando categorías...</div>
+    <div class="col-12 text-center text-muted">Cargando categorías...</div>
     }
   </div>
 </section>
@@ -80,11 +87,11 @@
 
   <div class="row g-4">
     @for (libro of librosDestacados; track libro.id_libro) {
-      <div class="col-lg-3 col-md-6">
-        <app-libro-card [libro]="libro"></app-libro-card>
-      </div>
+    <div class="col-lg-3 col-md-6">
+      <app-libro-card [libro]="libro"></app-libro-card>
+    </div>
     } @empty {
-        <div class="col-12 text-center text-muted">No hay libros destacados disponibles en este momento.</div>
+    <div class="col-12 text-center text-muted">No hay libros destacados disponibles en este momento.</div>
     }
   </div>
 
