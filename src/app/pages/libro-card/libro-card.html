@@ -6,16 +6,24 @@
   </div>
   }
 
-  <div class="card">
-    <img [src]="portadaUrl" (error)="onImageError()" alt="{{ libro.titulo }}" class="card-img-top">
-    <div class="card-body">
-      <h5 class="card-title">{{ libro.titulo }}</h5>
+<div class="card h-100 shadow-sm border-0 position-relative libro-card">
+
+  @if (libro.stock === 0) {
+    <div class="position-absolute w-100 h-100 bg-dark opacity-75 d-flex align-items-center justify-content-center text-white z-2 rounded">
+      <span class="fw-bold fs-5">AGOTADO</span>
     </div>
+  }
+
+  <div class="card-img-container rounded-top">
+    <img [src]="portadaUrl"
+         class="book-cover-img"
+         alt="{{ libro.titulo }}"
+         onerror="this.src='assets/images/book-placeholder.jpg'">
   </div>
 
   <div class="card-body d-flex flex-column">
     <small class="text-primary-custom fw-bold text-uppercase mb-1">{{ libro.categoria || 'General' }}</small>
-    <h5 class="card-title fw-bold text-dark-custom mb-1">{{ libro.titulo }}</h5>
+    <h5 class="card-title fw-bold text-dark-custom mb-1 text-truncate" title="{{ libro.titulo }}">{{ libro.titulo }}</h5>
     <p class="card-text text-muted small mb-3">{{ libro.autor }}</p>
 
     <div class="mt-auto">
@@ -24,4 +32,5 @@
       </button>
     </div>
   </div>
+</div>
 </div>
