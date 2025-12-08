@@ -1,0 +1,66 @@
+<div class="container py-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold text-dark-custom">Gestión de Reservas</h2>
+    <span class="badge bg-primary rounded-pill fs-6">{{ reservas.length }} Total</span>
+  </div>
+
+  <div class="card shadow-lg border-0 overflow-hidden">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="bg-light text-uppercase small text-muted">
+          <tr>
+            <th class="ps-4">ID</th>
+            <th>Usuario</th>
+            <th>Libro</th>
+            <th>Fecha Límite</th>
+            <th>Estado</th>
+            <th class="text-end pe-4">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (reserva of reservas; track reserva.id_reservacion) {
+            <tr>
+              <td class="ps-4 fw-bold text-muted">#{{ reserva.id_reservacion }}</td>
+              <td>
+                <div class="fw-bold text-dark">{{ reserva.nombre_usuario }}</div>
+                <small class="text-muted">ID: {{ reserva.id_usuario }}</small>
+              </td>
+              <td class="text-primary-custom fw-medium">{{ reserva.titulo_libro }}</td>
+              <td>{{ reserva.fecha_limite | date:'shortDate' }}</td>
+              <td>
+                <span class="badge rounded-pill"
+                      [ngClass]="{
+                        'bg-warning text-dark': reserva.estado === 'pendiente',
+                        'bg-success': reserva.estado === 'recogido',
+                        'bg-danger': reserva.estado === 'cancelado'
+                      }">
+                  {{ reserva.estado | titlecase }}
+                </span>
+              </td>
+              <td class="text-end pe-4">
+
+                @if (reserva.estado === 'pendiente') {
+                  <button class="btn btn-sm btn-success me-2"
+                          (click)="cambiarEstado(reserva.id_reservacion, 'recogido')"
+                          title="Marcar como Recogido">
+                    <i class="bi bi-check-lg"></i> Entregar
+                  </button>
+                }
+
+                <button class="btn btn-sm btn-outline-danger"
+                        (click)="eliminar(reserva.id_reservacion)"
+                        title="Eliminar Reserva">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="6" class="text-center py-5 text-muted">No hay reservaciones registradas.</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

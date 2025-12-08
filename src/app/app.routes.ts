@@ -5,6 +5,7 @@ import { Reservar } from './pages/reservar/reservar';
 import { Reservaciones } from './pages/reservaciones/reservaciones';
 import { BookForm } from './pages/book-form/book-form';
 import { Login } from './pages/login/login';
+import { AdminReservaciones } from './pages/admin-reservaciones/admin-reservaciones';
 
 export const routes: Routes = [
   { path: '', component: Home },
@@ -13,5 +14,6 @@ export const routes: Routes = [
   { path: 'reservar/:id', component: Reservar },
   { path: 'mis-reservaciones', component: Reservaciones },
   { path: 'admin/nuevo-libro', component: BookForm },
+  { path: 'admin/reservaciones', component: AdminReservaciones },
   { path: '**', redirectTo: '' }
 ];
