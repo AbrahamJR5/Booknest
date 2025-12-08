@@ -6,9 +6,12 @@
   </div>
   }
 
-  <div class="ratio ratio-3x4 overflow-hidden rounded-top">
-    <img [src]="portadaUrl" class="card-img-top object-fit-cover" alt="{{ libro.titulo }}"
-      onerror="this.src='/assets/images/book-placeholder.jpg'">
+  <div class="card h-100 shadow-sm border-0 position-relative libro-card">
+    <div class="ratio ratio-3x4 overflow-hidden rounded-top">
+      <img [src]="portadaUrl" class="card-img-top object-fit-cover" alt="{{ libro.titulo }}"
+        onerror="this.src='assets/images/book-placeholder.jpg'">
+    </div>
+
   </div>
 
   <div class="card-body d-flex flex-column">

@@ -1,13 +1,10 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-// IMPORTACIONES CRÍTICAS: Necesitas DomSanitizer para permitir URLs de otros puertos
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Libro } from '../../models/book.model';
 
 @Component({
   selector: 'app-libro-card',
   standalone: true,
-  // Necesitas CommonModule para usar *ngIf o @if
   imports: [CommonModule],
   templateUrl: './libro-card.html',
   styleUrl: './libro-card.scss'
@@ -15,20 +12,18 @@ import { Libro } from '../../models/book.model';
 export class LibroCard {
   @Input() libro!: Libro;
 
-  // 1. Inyección del servicio de sanitización
-  private sanitizer = inject(DomSanitizer);
-
-  // URL base donde tu backend sirve las imágenes
+  // URL base simple
   private baseUrl = 'http://localhost:3000/uploads/';
 
-  // 2. Getter que construye la URL y la marca como segura
-  get portadaUrl(): SafeResourceUrl | string {
-    if (this.libro.imagen) {
-      const fullUrl = `${this.baseUrl}${this.libro.imagen}`;
-      // CRÍTICO: Usamos bypassSecurityTrustResourceUrl para evitar el bloqueo de Angular
-      return this.sanitizer.bypassSecurityTrustResourceUrl(fullUrl);
+  get portadaUrl(): string {
+    // Depuración: Verás en la consola del navegador qué está intentando cargar
+    console.log('Procesando imagen para:', this.libro.titulo, 'Nombre archivo:', this.libro.imagen);
+
+    if (this.libro && this.libro.imagen) {
+      // Retornamos la URL directa como texto simple
+      return `${this.baseUrl}${this.libro.imagen}`;
     }
-    // Fallback si no hay nombre de imagen en la BD
-    return '/assets/images/book-placeholder.jpg';
+    // Fallback
+    return 'assets/images/book-placeholder.jpg';
   }
 }
