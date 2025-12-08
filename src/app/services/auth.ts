@@ -10,18 +10,26 @@ import { Router } from '@angular/router';
 export class AuthService {
   private http = inject(HttpClient);
   private router = inject(Router);
-  private apiUrl = 'http://localhost:3000/users/login';
+
+  // Endpoints
+  private loginUrl = 'http://localhost:3000/users/login';
+  private usersUrl = 'http://localhost:3000/users'; 
 
   currentUser = signal<Usuario | null>(this.getUserFromStorage());
 
   login(credentials: {email: string, password: string}): Observable<any> {
-    return this.http.post<any>(this.apiUrl, credentials).pipe(
+    return this.http.post<any>(this.loginUrl, credentials).pipe(
       tap(response => {
         if (response.usuario) {
           this.setUserToStorage(response.usuario);
         }
       })
     );
+  }
+
+
+  register(usuario: Usuario): Observable<any> {
+    return this.http.post<any>(this.usersUrl, usuario);
   }
 
   logout() {

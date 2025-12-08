@@ -1,0 +1,58 @@
+<div class="container d-flex justify-content-center align-items-center min-vh-100 bg-light">
+  <div class="card shadow-lg p-4" style="max-width: 450px; width: 100%;">
+    <div class="text-center mb-4">
+      <h3 class="fw-bold text-primary-custom">Crear Cuenta</h3>
+      <p class="text-muted">Únete a BookNest</p>
+    </div>
+
+    @if (successMessage) {
+      <div class="alert alert-success text-center">{{ successMessage }}</div>
+    }
+
+    @if (errorMessage) {
+      <div class="alert alert-danger text-center">{{ errorMessage }}</div>
+    }
+
+    <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+
+      <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre Completo</label>
+        <input type="text" id="nombre" class="form-control" formControlName="nombre" placeholder="Tu nombre">
+        @if (registroForm.get('nombre')?.invalid && registroForm.get('nombre')?.touched) {
+          <div class="text-danger small mt-1">El nombre es requerido (min 3 caracteres).</div>
+        }
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Correo Electrónico</label>
+        <input type="email" id="email" class="form-control" formControlName="email" placeholder="nombre@ejemplo.com">
+        @if (registroForm.get('email')?.invalid && registroForm.get('email')?.touched) {
+          <div class="text-danger small mt-1">Ingresa un correo válido.</div>
+        }
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <input type="password" id="password" class="form-control" formControlName="password" placeholder="********">
+        @if (registroForm.get('password')?.invalid && registroForm.get('password')?.touched) {
+          <div class="text-danger small mt-1">Mínimo 6 caracteres.</div>
+        }
+      </div>
+
+      <div class="mb-3">
+        <label for="claveAdmin" class="form-label text-muted small">¿Eres administrador?</label>
+        <input type="password" id="claveAdmin" class="form-control" formControlName="claveAdmin"
+               placeholder="Clave de acceso (Opcional)">
+        <div class="form-text">Solo ingresa si tienes un código de personal.</div>
+      </div>
+
+      <button type="submit" class="btn btn-primary-custom w-100 mt-3" [disabled]="registroForm.invalid">
+        Registrarse
+      </button>
+    </form>
+
+    <div class="text-center mt-3">
+      <small>¿Ya tienes cuenta? <a routerLink="/login">Inicia Sesión</a></small>
+    </div>
+  </div>
+</div>
