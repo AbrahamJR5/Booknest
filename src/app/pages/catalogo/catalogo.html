@@ -1,1 +1,17 @@
-<p>catalogo works!</p>
+<div class="container py-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold text-dark-custom">Catálogo Completo</h2>
+  </div>
+
+  <div class="row g-4">
+    @for (libro of libros; track libro.id_libro) {
+    <div class="col-lg-3 col-md-6">
+      <app-libro-card [libro]="libro"></app-libro-card>
+    </div>
+    } @empty {
+    <div class="col-12 text-center py-5">
+      <p class="text-muted fs-5">No hay libros disponibles en este momento.</p>
+    </div>
+    }
+  </div>
+</div>

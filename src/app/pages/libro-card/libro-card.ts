@@ -1,11 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Libro } from '../../models/book.model';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-libro-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './libro-card.html',
   styleUrl: './libro-card.scss'
 })
@@ -30,4 +31,5 @@ export class LibroCard {
   onImageError() {
     this.imageError = true;
   }
+
 }
