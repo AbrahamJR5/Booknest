@@ -2,7 +2,7 @@
     background-color: #f8f9fa;
     border: 2px dashed #dee2e6 !important;
     color: #6c757d;
-
+}
 
 ::ng-deep {
 
@@ -14,7 +14,6 @@
         opacity: 1 !important;
     }
 
-
     .custom-input:focus,
     .custom-input:active,
     .custom-input:hover {
@@ -23,7 +22,6 @@
         border-color: var(--color-primary);
         box-shadow: 0 0 0 0.25rem rgba(218, 187, 117, 0.25);
     }
-
 
     .custom-input:-webkit-autofill,
     .custom-input:-webkit-autofill:hover,
@@ -35,24 +33,20 @@
         caret-color: #000000 !important;
     }
 
-
     .form-floating > label {
-        color: #6c757d !important;
+        color: #000 !important;
         opacity: 1 !important;
     }
 
     .form-floating > .form-control:focus ~ label,
     .form-floating > .form-control:not(:placeholder-shown) ~ label,
     .form-floating > .form-select ~ label {
-        color: #6c757d !important;
-        opacity: 0.8 !important;
+        color: #000 !important;
+        opacity: 0.9 !important;
     }
-
 
     option {
         color: #000000 !important;
         background-color: #ffffff !important;
     }
-}
-
 }
