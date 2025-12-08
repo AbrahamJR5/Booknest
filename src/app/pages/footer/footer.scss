@@ -1,0 +1,24 @@
+.footer-custom {
+    background-color: var(--color-text-dark);
+    color: #ececec;
+    font-size: 0.9rem;
+}
+
+
+.hover-effect {
+    transition: color 0.2s ease-in-out;
+    &:hover {
+        color: var(--color-primary) !important;
+        text-decoration: underline !important;
+    }
+}
+
+
+.social-icon {
+    transition: all 0.3s;
+    &:hover {
+        background-color: var(--color-primary);
+        color: var(--color-text-dark);
+        transform: translateY(-3px);
+    }
+}

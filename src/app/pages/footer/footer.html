@@ -1,1 +1,55 @@
-<p>footer works!</p>
+<footer class="footer-custom text-white pt-5 pb-4 mt-auto">
+  <div class="container text-center text-md-start">
+    <div class="row text-center text-md-start">
+
+      <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+        <h5 class="text-uppercase mb-4 fw-bold text-primary-custom">
+          <i class="bi bi-book me-2"></i>BookNest
+        </h5>
+        <p>
+          Tu plataforma universitaria para descubrir, reservar y disfrutar de la lectura.
+          Conectamos historias con lectores.
+        </p>
+      </div>
+
+      <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+        <h6 class="text-uppercase mb-4 fw-bold text-primary-custom">Navegación</h6>
+        <p><a routerLink="/" class="text-white text-decoration-none hover-effect">Inicio</a></p>
+        <p><a routerLink="/catalogo" class="text-white text-decoration-none hover-effect">Catálogo</a></p>
+        <p><a routerLink="/mis-reservaciones" class="text-white text-decoration-none hover-effect">Mis Reservas</a></p>
+      </div>
+
+      <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+        <h6 class="text-uppercase mb-4 fw-bold text-primary-custom">Contacto</h6>
+        <p><i class="bi bi-house-door-fill me-2"></i> Campus Central, Edificio A</p>
+        <p><i class="bi bi-envelope-fill me-2"></i> biblio@booknest.com</p>
+        <p><i class="bi bi-telephone-fill me-2"></i> +52 555 123 4567</p>
+      </div>
+
+      <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+        <h6 class="text-uppercase mb-4 fw-bold text-primary-custom">Síguenos</h6>
+        <div class="d-flex justify-content-center justify-content-md-start gap-3">
+           <a href="#" class="btn btn-outline-light btn-floating m-1 rounded-circle border-0 social-icon"><i class="bi bi-facebook fs-5"></i></a>
+           <a href="#" class="btn btn-outline-light btn-floating m-1 rounded-circle border-0 social-icon"><i class="bi bi-twitter-x fs-5"></i></a>
+           <a href="#" class="btn btn-outline-light btn-floating m-1 rounded-circle border-0 social-icon"><i class="bi bi-instagram fs-5"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <hr class="mb-4 border-secondary">
+
+    <div class="row align-items-center">
+      <div class="col-md-7 col-lg-8">
+        <p class="m-0">
+          © {{ currentYear }} <strong>BookNest</strong>. Todos los derechos reservados.
+        </p>
+      </div>
+      <div class="col-md-5 col-lg-4">
+        <p class="text-center text-md-end m-0">
+          <a href="#" class="text-white text-decoration-none small me-3">Privacidad</a>
+          <a href="#" class="text-white text-decoration-none small">Términos</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
