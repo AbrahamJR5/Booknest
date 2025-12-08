@@ -1,28 +1,58 @@
 .image-preview-box {
     background-color: #f8f9fa;
     border: 2px dashed #dee2e6 !important;
+    color: #6c757d;
+
+
+::ng-deep {
+
+    .custom-input {
+        color: #000000 !important;
+        background-color: #ffffff !important;
+        caret-color: #000000 !important;
+        border: 1px solid #ced4da;
+        opacity: 1 !important;
+    }
+
+
+    .custom-input:focus,
+    .custom-input:active,
+    .custom-input:hover {
+        color: #000000 !important;
+        background-color: #ffffff !important;
+        border-color: var(--color-primary);
+        box-shadow: 0 0 0 0.25rem rgba(218, 187, 117, 0.25);
+    }
+
+
+    .custom-input:-webkit-autofill,
+    .custom-input:-webkit-autofill:hover,
+    .custom-input:-webkit-autofill:focus,
+    .custom-input:-webkit-autofill:active {
+        -webkit-text-fill-color: #000000 !important;
+        -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important;
+        transition: background-color 5000s ease-in-out 0s;
+        caret-color: #000000 !important;
+    }
+
+
+    .form-floating > label {
+        color: #6c757d !important;
+        opacity: 1 !important;
+    }
+
+    .form-floating > .form-control:focus ~ label,
+    .form-floating > .form-control:not(:placeholder-shown) ~ label,
+    .form-floating > .form-select ~ label {
+        color: #6c757d !important;
+        opacity: 0.8 !important;
+    }
+
+
+    option {
+        color: #000000 !important;
+        background-color: #ffffff !important;
+    }
 }
 
-
-.form-control, .form-select {
-    color: #212529 !important;
-    background-color: #ffffff !important;
-}
-
-
-.form-floating > label {
-    color: #6c757d !important;
-}
-
-
-.form-floating > .form-control:focus ~ label,
-.form-floating > .form-control:not(:placeholder-shown) ~ label,
-.form-floating > .form-select ~ label {
-    color: #6c757d !important;
-    opacity: 0.8;
-}
-
-option {
-    color: #000000;
-    background-color: #ffffff;
 }

@@ -14,34 +14,34 @@
               <div class="col-md-7">
 
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control text-dark" id="titulo" formControlName="titulo" placeholder="Título">
-                  <label for="titulo" class="text-muted">Título del Libro</label>
+                  <input type="text" class="form-control custom-input" id="titulo" formControlName="titulo" placeholder="Título">
+                  <label for="titulo">Título del Libro</label>
                 </div>
 
                 <div class="row g-2 mb-3">
                   <div class="col-md-6 form-floating">
-                    <input type="text" class="form-control text-dark" id="autor" formControlName="autor" placeholder="Autor">
-                    <label for="autor" class="text-muted">Autor</label>
+                    <input type="text" class="form-control custom-input" id="autor" formControlName="autor" placeholder="Autor">
+                    <label for="autor">Autor</label>
                   </div>
                   <div class="col-md-6 form-floating">
-                    <select class="form-select text-dark" id="categoria" formControlName="id_categoria">
+                    <select class="form-select custom-input" id="categoria" formControlName="id_categoria">
                       <option value="" disabled selected>Selecciona...</option>
                       @for (cat of categorias; track cat.id_categoria) {
-                        <option [value]="cat.id_categoria" class="text-dark">{{ cat.nombre }}</option>
+                        <option [value]="cat.id_categoria">{{ cat.nombre }}</option>
                       }
                     </select>
-                    <label for="categoria" class="text-muted">Categoría</label>
+                    <label for="categoria">Categoría</label>
                   </div>
                 </div>
 
                 <div class="form-floating mb-3">
-                  <textarea class="form-control text-dark" id="desc" formControlName="descripcion" style="height: 100px" placeholder="Desc"></textarea>
-                  <label for="desc" class="text-muted">Sinopsis / Descripción</label>
+                  <textarea class="form-control custom-input" id="desc" formControlName="descripcion" style="height: 100px" placeholder="Desc"></textarea>
+                  <label for="desc">Sinopsis / Descripción</label>
                 </div>
 
                 <div class="form-floating mb-3">
-                  <input type="number" class="form-control text-dark" id="stock" formControlName="stock" placeholder="0">
-                  <label for="stock" class="text-muted">Stock Disponible</label>
+                  <input type="number" class="form-control custom-input" id="stock" formControlName="stock" placeholder="0">
+                  <label for="stock">Stock Disponible</label>
                 </div>
 
               </div>
@@ -59,7 +59,7 @@
                   }
                 </div>
 
-                <input type="file" class="form-control text-dark" (change)="onFileSelected($event)" accept="image/*">
+                <input type="file" class="form-control custom-input" (change)="onFileSelected($event)" accept="image/*">
                 <div class="form-text text-center mt-2 text-muted">Formatos: JPG, PNG (Max 2MB)</div>
 
                 <button type="submit" class="btn btn-success w-100 mt-3 py-2 fw-bold shadow-sm" [disabled]="bookForm.invalid || !selectedFile">
