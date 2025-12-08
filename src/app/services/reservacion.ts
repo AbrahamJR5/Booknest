@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Reservacion } from '../models/reservacion.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,5 +15,8 @@ export class ReservacionService {
   }
   getReservaciones(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
+  }
+  cancelarReservacion(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
 }
