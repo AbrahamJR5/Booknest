@@ -1,5 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+// 1. IMPORTAR SafeUrl en lugar de SafeResourceUrl
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Libro } from '../../models/book.model';
 
 @Component({
@@ -12,18 +14,16 @@ import { Libro } from '../../models/book.model';
 export class LibroCard {
   @Input() libro!: Libro;
 
-  // URL base simple
+  private sanitizer = inject(DomSanitizer);
   private baseUrl = 'http://localhost:3000/uploads/';
 
-  get portadaUrl(): string {
-    // Depuración: Verás en la consola del navegador qué está intentando cargar
-    console.log('Procesando imagen para:', this.libro.titulo, 'Nombre archivo:', this.libro.imagen);
-
-    if (this.libro && this.libro.imagen) {
-      // Retornamos la URL directa como texto simple
-      return `${this.baseUrl}${this.libro.imagen}`;
+  // 2. CAMBIAR el tipo de retorno y el método de seguridad
+  get portadaUrl(): SafeUrl | string {
+    if (this.libro.imagen) {
+      const fullUrl = `${this.baseUrl}${this.libro.imagen}`;
+      // CORRECCIÓN: Usar bypassSecurityTrustUrl para imágenes
+      return this.sanitizer.bypassSecurityTrustUrl(fullUrl);
     }
-    // Fallback
-    return 'assets/images/book-placeholder.jpg';
+    return '/assets/images/book-placeholder.jpg';
   }
 }
