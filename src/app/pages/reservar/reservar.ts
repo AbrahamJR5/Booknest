@@ -19,16 +19,15 @@ export class Reservar implements OnInit {
   private router = inject(Router);
   private fb = inject(FormBuilder);
   private libroService = inject(LibroService);
-  public authService = inject(AuthService);
+  public authService = inject(AuthService); 
   private reservacionService = inject(ReservacionService);
 
   libro: Libro | null = null;
   reservarForm!: FormGroup;
   mensaje: string = '';
-  auth: any;
 
   ngOnInit() {
-    if (!this.auth.currentUser()) {
+    if (!this.authService.currentUser()) {
       this.router.navigate(['/login']);
       return;
     }

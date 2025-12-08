@@ -7,16 +7,14 @@
 
           <div class="col-md-5 bg-light d-flex flex-column align-items-center justify-content-center p-4">
             @if (libro) {
-              <img [src]="'http://localhost:3000/uploads/' + libro.imagen"
-                   class="img-fluid rounded shadow mb-3"
-                   style="max-height: 300px; object-fit: cover;"
-                   onerror="this.src='assets/images/book-placeholder.jpg'"
-                   alt="{{ libro.titulo }}">
-              <h4 class="fw-bold text-center text-dark-custom">{{ libro.titulo }}</h4>
-              <p class="text-muted text-center">{{ libro.autor }}</p>
-              <span class="badge bg-primary fs-6">{{ libro.categoria }}</span>
+            <img [src]="'http://localhost:3000/uploads/' + libro.imagen" class="img-fluid rounded shadow mb-3"
+              style="max-height: 300px; object-fit: cover;" onerror="this.src='/assets/images/book-placeholder.jpg'"
+              alt="{{ libro.titulo }}">
+            <h4 class="fw-bold text-center text-dark-custom">{{ libro.titulo }}</h4>
+            <p class="text-muted text-center">{{ libro.autor }}</p>
+            <span class="badge bg-primary fs-6">{{ libro.categoria }}</span>
             } @else {
-              <div class="spinner-border text-primary" role="status"></div>
+            <div class="spinner-border text-primary" role="status"></div>
             }
           </div>
 
@@ -24,7 +22,7 @@
             <h3 class="fw-bold text-primary-custom mb-4">Confirmar Reservación</h3>
 
             @if (mensaje) {
-              <div class="alert alert-danger">{{ mensaje }}</div>
+            <div class="alert alert-danger">{{ mensaje }}</div>
             }
 
             <form [formGroup]="reservarForm" (ngSubmit)="onSubmit()">
@@ -37,7 +35,7 @@
               <div class="mb-3">
                 <label for="fecha" class="form-label fw-bold">¿Hasta cuándo lo necesitas?</label>
                 <input type="date" id="fecha" formControlName="fecha_limite" class="form-control"
-                       [ngClass]="{'is-invalid': reservarForm.get('fecha_limite')?.invalid && reservarForm.get('fecha_limite')?.touched}">
+                  [ngClass]="{'is-invalid': reservarForm.get('fecha_limite')?.invalid && reservarForm.get('fecha_limite')?.touched}">
                 <div class="invalid-feedback">
                   Debes seleccionar una fecha de devolución.
                 </div>
@@ -46,7 +44,8 @@
 
               <div class="mb-4">
                 <label for="notas" class="form-label">Notas adicionales (Opcional)</label>
-                <textarea id="notas" formControlName="notas" class="form-control" rows="2" placeholder="Ej: Lo recogeré por la tarde..."></textarea>
+                <textarea id="notas" formControlName="notas" class="form-control" rows="2"
+                  placeholder="Ej: Lo recogeré por la tarde..."></textarea>
               </div>
 
               <div class="d-grid gap-2">
