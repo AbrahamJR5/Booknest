@@ -1,16 +1,16 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LibroService } from '../../services/libro';
 import { CategoriaService } from '../../services/categoria';
-import { Categoria } from '../../models/category.model';
+import { Libro } from '../../models/book.model';
 
 @Component({
   selector: 'app-book-form',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './book-form.html',
-  styleUrl: './book-form.scss',
+  styleUrl: './book-form.scss'
 })
 export class BookForm implements OnInit {
   private fb = inject(FormBuilder);
@@ -18,63 +18,83 @@ export class BookForm implements OnInit {
   private categoriaService = inject(CategoriaService);
 
   bookForm!: FormGroup;
-  categorias: Categoria[] = [];
-  archivoSeleccionado: File | null = null;
-  mensajeEnvio: string = '';
+  libros: Libro[] = [];
+  categorias: any[] = [];
+  selectedFile: File | null = null;
+  imagePreview: string | ArrayBuffer | null = null;
+  mensaje: string = '';
 
-  ngOnInit(): void {
-    this.cargarCategorias();
+  ngOnInit() {
     this.bookForm = this.fb.group({
       titulo: ['', Validators.required],
       autor: ['', Validators.required],
-      descripcion: [''],
+      descripcion: ['', Validators.required],
       stock: [1, [Validators.required, Validators.min(1)]],
-      id_categoria: ['', Validators.required],
+      id_categoria: ['', Validators.required]
+    });
+
+    this.cargarLibros();
+    this.cargarCategorias();
+  }
+
+  cargarLibros() {
+    this.libroService.getLibros().subscribe({
+      next: (data) => this.libros = data,
+      error: (err) => console.error(err)
     });
   }
 
-  cargarCategorias(): void {
-    this.categoriaService.getCategorias().subscribe(data => {
-      this.categorias = data;
+  cargarCategorias() {
+    this.categoriaService.getCategorias().subscribe({
+        next: (data) => this.categorias = data,
+        error: () => console.warn('No se pudieron cargar categorías')
     });
   }
 
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.archivoSeleccionado = input.files[0];
-    } else {
-      this.archivoSeleccionado = null;
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+
+      const reader = new FileReader();
+      reader.onload = () => this.imagePreview = reader.result;
+      reader.readAsDataURL(file);
     }
   }
 
-  onSubmit(): void {
-    this.mensajeEnvio = '';
-
-    if (this.bookForm.invalid || !this.archivoSeleccionado) {
-      this.bookForm.markAllAsTouched();
-      this.mensajeEnvio = 'Por favor, completa todos los campos requeridos y sube una imagen.';
+  onSubmit() {
+    if (this.bookForm.invalid || !this.selectedFile) {
+      alert('Por favor completa el formulario y selecciona una imagen.');
       return;
     }
 
     const formData = new FormData();
-    formData.append('titulo', this.bookForm.get('titulo')!.value);
-    formData.append('autor', this.bookForm.get('autor')!.value);
-    formData.append('descripcion', this.bookForm.get('descripcion')!.value);
-    formData.append('stock', this.bookForm.get('stock')!.value.toString());
-    formData.append('id_categoria', this.bookForm.get('id_categoria')!.value);
-    formData.append('imagen', this.archivoSeleccionado, this.archivoSeleccionado.name);
+    Object.keys(this.bookForm.value).forEach(key => {
+      formData.append(key, this.bookForm.value[key]);
+    });
+    formData.append('imagen', this.selectedFile);
 
     this.libroService.createLibro(formData).subscribe({
-      next: (response) => {
-        this.mensajeEnvio = 'Libro creado con éxito. ID: ' + response.id_libro;
-        this.bookForm.reset({ stock: 1 }); // Limpiar formulario
-        this.archivoSeleccionado = null;
+      next: () => {
+        alert('Libro registrado exitosamente');
+        this.bookForm.reset({ stock: 1 });
+        this.imagePreview = null;
+        this.selectedFile = null;
+        this.cargarLibros();
       },
-      error: (err) => {
-        console.error('Error al crear libro:', err);
-        this.mensajeEnvio = 'Error al intentar crear el libro. Revisa la consola y el backend.';
-      }
+      error: (err: any) => alert('Error al crear el libro')
     });
+  }
+
+  eliminar(id: number) {
+    if (confirm('¿Estás seguro de eliminar este libro del sistema?')) {
+      this.libroService.eliminarLibro(id).subscribe({
+        next: () => {
+          this.cargarLibros();
+          alert('Libro eliminado.');
+        },
+        error: (err: any) => alert('Error al eliminar.')
+      });
+    }
   }
 }

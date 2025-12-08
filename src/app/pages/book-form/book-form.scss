@@ -1,0 +1,28 @@
+.image-preview-box {
+    background-color: #f8f9fa;
+    border: 2px dashed #dee2e6 !important;
+}
+
+
+.form-control, .form-select {
+    color: #212529 !important;
+    background-color: #ffffff !important;
+}
+
+
+.form-floating > label {
+    color: #6c757d !important;
+}
+
+
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label,
+.form-floating > .form-select ~ label {
+    color: #6c757d !important;
+    opacity: 0.8;
+}
+
+option {
+    color: #000000;
+    background-color: #ffffff;
+}

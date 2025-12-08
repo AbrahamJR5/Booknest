@@ -22,4 +22,8 @@ export class LibroService {
   createLibro(formData: FormData): Observable<Libro> {
     return this.http.post<Libro>(this.apiUrl, formData);
   }
+
+  eliminarLibro(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
 }

@@ -1,75 +1,131 @@
 <div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <div class="card shadow-sm border-0">
-                <div class="card-header bg-hero text-white">
-                    <h4 class="mb-0">Añadir Nuevo Libro (Panel Admin)</h4>
-                </div>
-                <div class="card-body">
 
-                    @if (mensajeEnvio) {
-                        <div class="alert" [ngClass]="{'alert-success': mensajeEnvio.includes('✅'), 'alert-danger': mensajeEnvio.includes('❌')}">
-                            {{ mensajeEnvio }}
-                        </div>
-                    }
-
-                    <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
-
-                        <div class="row g-3 mb-3">
-                            <div class="col-md-6"> <label for="titulo" class="form-label">Título</label>
-                                <input id="titulo" type="text" formControlName="titulo" class="form-control"
-                                       [ngClass]="{'is-invalid': bookForm.get('titulo')?.invalid && bookForm.get('titulo')?.touched}">
-                                <div class="invalid-feedback">El título es requerido.</div>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="autor" class="form-label">Autor</label>
-                                <input id="autor" type="text" formControlName="autor" class="form-control"
-                                       [ngClass]="{'is-invalid': bookForm.get('autor')?.invalid && bookForm.get('autor')?.touched}">
-                                <div class="invalid-feedback">El autor es requerido.</div>
-                            </div>
-                        </div>
-
-                        <div class="row g-3 mb-3">
-                            <div class="col-md-6">
-                                <label for="category" class="form-label">Categoría</label>
-                                <select id="category" formControlName="id_categoria" class="form-select"
-                                        [ngClass]="{'is-invalid': bookForm.get('id_categoria')?.invalid && bookForm.get('id_categoria')?.touched}">
-                                    <option value="" disabled>Selecciona una categoría</option>
-                                    @for (cat of categorias; track cat.id_categoria) {
-                                        <option [value]="cat.id_categoria">{{ cat.nombre }}</option>
-                                    }
-                                </select>
-                                <div class="invalid-feedback">La categoría es requerida.</div>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="stock" class="form-label">Stock Inicial</label>
-                                <input id="stock" type="number" formControlName="stock" class="form-control"
-                                       [ngClass]="{'is-invalid': bookForm.get('stock')?.invalid && bookForm.get('stock')?.touched}">
-                                <div class="invalid-feedback">Debe ser un número válido (> 0).</div>
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="descripcion" class="form-label">Descripción</label>
-                            <textarea id="descripcion" formControlName="descripcion" class="form-control" rows="3"></textarea>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="imagen" class="form-label">Imagen de Portada (JPG/PNG)</label>
-                            <input id="imagen" type="file" (change)="onFileSelected($event)" accept="image/*" class="form-control"
-                                   [ngClass]="{'is-invalid': !archivoSeleccionado && bookForm.touched}">
-                            <div class="form-text">
-                                {{ archivoSeleccionado ? archivoSeleccionado.name : 'Ningún archivo seleccionado.' }}
-                            </div>
-                            <div class="invalid-feedback">Se requiere subir una imagen de portada.</div>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary-custom w-100" [disabled]="bookForm.invalid || !archivoSeleccionado">
-                            Crear Libro
-                        </button>
-                    </form>
-                </div>
-            </div>
+  <div class="row justify-content-center mb-5">
+    <div class="col-lg-10">
+      <div class="card border-0 shadow-lg overflow-hidden">
+        <div class="card-header bg-primary-custom text-white py-3">
+          <h4 class="mb-0 fw-bold"><i class="bi bi-plus-circle-dotted me-2"></i>Registrar Nuevo Libro</h4>
         </div>
+
+        <div class="card-body p-4 bg-light">
+          <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+
+              <div class="col-md-7">
+
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control text-dark" id="titulo" formControlName="titulo" placeholder="Título">
+                  <label for="titulo" class="text-muted">Título del Libro</label>
+                </div>
+
+                <div class="row g-2 mb-3">
+                  <div class="col-md-6 form-floating">
+                    <input type="text" class="form-control text-dark" id="autor" formControlName="autor" placeholder="Autor">
+                    <label for="autor" class="text-muted">Autor</label>
+                  </div>
+                  <div class="col-md-6 form-floating">
+                    <select class="form-select text-dark" id="categoria" formControlName="id_categoria">
+                      <option value="" disabled selected>Selecciona...</option>
+                      @for (cat of categorias; track cat.id_categoria) {
+                        <option [value]="cat.id_categoria" class="text-dark">{{ cat.nombre }}</option>
+                      }
+                    </select>
+                    <label for="categoria" class="text-muted">Categoría</label>
+                  </div>
+                </div>
+
+                <div class="form-floating mb-3">
+                  <textarea class="form-control text-dark" id="desc" formControlName="descripcion" style="height: 100px" placeholder="Desc"></textarea>
+                  <label for="desc" class="text-muted">Sinopsis / Descripción</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                  <input type="number" class="form-control text-dark" id="stock" formControlName="stock" placeholder="0">
+                  <label for="stock" class="text-muted">Stock Disponible</label>
+                </div>
+
+              </div>
+
+              <div class="col-md-5 d-flex flex-column align-items-center justify-content-center border-start ps-md-4 mt-4 mt-md-0">
+                <div class="image-preview-box mb-3 d-flex align-items-center justify-content-center bg-white border rounded shadow-sm"
+                     style="width: 100%; height: 250px; overflow: hidden;">
+                  @if (imagePreview) {
+                    <img [src]="imagePreview" class="img-fluid" style="height: 100%; object-fit: cover;">
+                  } @else {
+                    <div class="text-center text-muted">
+                      <i class="bi bi-image fs-1"></i>
+                      <p class="small mb-0">Vista previa de portada</p>
+                    </div>
+                  }
+                </div>
+
+                <input type="file" class="form-control text-dark" (change)="onFileSelected($event)" accept="image/*">
+                <div class="form-text text-center mt-2 text-muted">Formatos: JPG, PNG (Max 2MB)</div>
+
+                <button type="submit" class="btn btn-success w-100 mt-3 py-2 fw-bold shadow-sm" [disabled]="bookForm.invalid || !selectedFile">
+                  <i class="bi bi-save me-2"></i> Publicar Libro
+                </button>
+              </div>
+
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
+  </div>
+
+  <hr class="my-5 text-muted">
+
+  <div class="row justify-content-center">
+    <div class="col-lg-12">
+      <div class="d-flex justify-content-between align-items-end mb-3">
+        <h3 class="fw-bold text-dark-custom mb-0">Inventario Actual</h3>
+        <span class="badge bg-primary rounded-pill fs-6">{{ libros.length }} Libros</span>
+      </div>
+
+      <div class="card shadow-sm border-0">
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="bg-light">
+              <tr>
+                <th scope="col" class="ps-4 text-dark">Portada</th>
+                <th scope="col" class="text-dark">Título</th>
+                <th scope="col" class="text-dark">Autor</th>
+                <th scope="col" class="text-center text-dark">Stock</th>
+                <th scope="col" class="text-end pe-4 text-dark">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (libro of libros; track libro.id_libro) {
+                <tr>
+                  <td class="ps-4">
+                    <img [src]="'http://localhost:3000/uploads/' + libro.imagen"
+                         class="rounded border" width="50" height="70" style="object-fit: cover;"
+                         onerror="this.src='/assets/images/book-placeholder.jpg'">
+                  </td>
+                  <td class="fw-bold text-dark">{{ libro.titulo }}</td>
+                  <td class="text-muted">{{ libro.autor }}</td>
+                  <td class="text-center">
+                    <span class="badge" [ngClass]="libro.stock > 5 ? 'bg-success' : (libro.stock > 0 ? 'bg-warning' : 'bg-danger')">
+                      {{ libro.stock }}
+                    </span>
+                  </td>
+                  <td class="text-end pe-4">
+                    <button class="btn btn-outline-danger btn-sm" (click)="eliminar(libro.id_libro!)" title="Eliminar Libro">
+                      <i class="bi bi-trash"></i> Eliminar
+                    </button>
+                  </td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="5" class="text-center py-4 text-muted">No hay libros registrados aún.</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
