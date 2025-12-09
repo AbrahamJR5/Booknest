@@ -59,3 +59,9 @@ body {
     color: var(--color-white);
   }
 }
+
+.bg-primary-custom {
+  background-color: var(--color-primary) !important;
+  color: #000 !important;
+}
+

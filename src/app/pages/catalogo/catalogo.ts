@@ -1,5 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 import { LibroService } from '../../services/libro';
 import { ReservacionService } from '../../services/reservacion';
 import { AuthService } from '../../services/auth';
@@ -17,8 +18,10 @@ export class Catalogo implements OnInit {
   private libroService = inject(LibroService);
   private reservacionService = inject(ReservacionService);
   private authService = inject(AuthService);
+  private route = inject(ActivatedRoute);
 
   libros: Libro[] = [];
+  librosOriginales: Libro[] = [];
   mensaje: string = '';
 
   ngOnInit() {
@@ -27,7 +30,22 @@ export class Catalogo implements OnInit {
 
   cargarLibros() {
     this.libroService.getLibros().subscribe({
-      next: (data) => this.libros = data,
+      next: (data) => {
+        this.librosOriginales = data;
+        this.libros = data;
+
+        this.route.queryParams.subscribe(params => {
+          const categoriaSeleccionada = params['categoria'];
+
+          if (categoriaSeleccionada) {
+            this.libros = this.librosOriginales.filter(libro =>
+              libro.categoria === categoriaSeleccionada
+            );
+          } else {
+            this.libros = this.librosOriginales;
+          }
+        });
+      },
       error: (err) => console.error(err)
     });
   }
@@ -41,7 +59,6 @@ export class Catalogo implements OnInit {
     }
 
     if (!confirm(`¿Deseas reservar el libro "${libro.titulo}"?`)) return;
-
 
     const fechaLimite = new Date();
     fechaLimite.setDate(fechaLimite.getDate() + 7);

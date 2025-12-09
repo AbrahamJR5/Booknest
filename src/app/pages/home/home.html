@@ -13,8 +13,10 @@
 
         <div class="position-relative w-100" style="max-width: 400px; margin: 0 auto 0 0;">
           <input type="text" class="form-control form-control-lg border-0 shadow-none ps-4 hero-search-input"
-            placeholder="Buscar libros, autores, categorías..." aria-label="Buscar libros">
-          <i class="bi bi-search position-absolute top-50 end-0 translate-middle-y me-3 opacity-50"></i>
+            placeholder="Buscar libros, autores, categorías..." aria-label="Buscar libros" [(ngModel)]="terminoBusqueda"
+            (keyup.enter)="buscarLibros()"> <i
+            class="bi bi-search position-absolute top-50 end-0 translate-middle-y me-3 opacity-50"
+            (click)="buscarLibros()" style="cursor: pointer;"></i>
         </div>
       </div>
 
