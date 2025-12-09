@@ -6,7 +6,6 @@ export interface Reservacion {
   fecha_reservacion?: Date;
   fecha_limite: string;
   estado?: 'pendiente' | 'recogido' | 'cancelado';
-
   nombre_usuario?: string;
   titulo_libro?: string;
 }

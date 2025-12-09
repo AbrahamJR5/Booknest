@@ -35,18 +35,29 @@ export class Catalogo implements OnInit {
         this.libros = data;
 
         this.route.queryParams.subscribe(params => {
+          const terminoBusqueda = params['q'];
           const categoriaSeleccionada = params['categoria'];
+          let librosFiltrados = this.librosOriginales;
+
+
+          if (terminoBusqueda) {
+            const termino = terminoBusqueda.toLowerCase();
+            librosFiltrados = librosFiltrados.filter(libro =>
+              libro.titulo.toLowerCase().includes(termino)
+            );
+          }
+
 
           if (categoriaSeleccionada) {
-            this.libros = this.librosOriginales.filter(libro =>
+            librosFiltrados = librosFiltrados.filter(libro =>
               libro.categoria === categoriaSeleccionada
             );
-          } else {
-            this.libros = this.librosOriginales;
           }
+
+          this.libros = librosFiltrados;
         });
       },
-      error: (err) => console.error(err)
+      error: (err) => console.error('Error al cargar libros:', err)
     });
   }
 

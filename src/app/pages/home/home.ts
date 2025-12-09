@@ -47,10 +47,13 @@ export class Home implements OnInit {
   }
 
   buscarLibros() {
-    if (this.terminoBusqueda.trim()) {
-      this.router.navigate(['/catalogo'], {
-        queryParams: { q: this.terminoBusqueda }
-      });
+    const termino = this.terminoBusqueda.trim();
+    if (termino) {
+
+      this.router.navigate(['/catalogo'], { queryParams: { q: termino } });
+    } else {
+      
+      this.router.navigate(['/catalogo']);
     }
   }
 
